@@ -10,6 +10,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/justinas/nosurf v1.1.1
 	golang.org/x/crypto v0.8.0
+	golang.org/crypto/bcrypt v0.9.0
 
 )
 
