@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/BiographicalAffidavit.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Table View</title>
+</head>
+<body class = "bgBlue">
+    <!--Welcome Card-->  
+  <div class = "CardUI">
+    <!--Nav Bar-->
+      <div class = "NavBar">
+        <a href="/TableView"  style = "font-weight: 700;">TableView</a>
+        <a href="/ArchiveView">ArchiveView </a>    
+        <hr>
+      </div>
+    <!--Filter-->
+    {{with .Flash}}
+        <div class = "flash"> {{.}}</div>
+        {{end}}
+    <div class = "filter">
+      <label for = "FilterBy">Filter By:</label>
+      <select name="FilterBy" id="Filter">
+        <option value="Verified">Verified</option>
+        <option value="Unverified">Unverified</option>
+      </select>
+    </div>
+    <!--Table to view User's affidavits-->
+          <div>
+            <table id="myTable" class="display table" >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Affidavit Number</th>
+                    <th>Status</th>
+                    <th>Date Submitted</th>
+                    <th></th>
+                  </tr>
+                </thead> 
+                
+            {{range .Form}} 
+                  <tr>
+                    <td>{{.User_id}} </td>
+                    <td>{{.Form_id}}</td>
+                    <td>{{.Form_status}}</td>
+                    <td>{{.CreateOn}}</td>
+                    <td>
+                      <form action="/updateForm" method = "POST" class = "d-inline-flex ">
+                        <button type = submit  name = "edit" value = "{{.Form_id}}" class = "btn btn-outline-primary bi bi-pencil-square" ></button>
+                      </form>
+
+                      <form action="/ArchiveForm" method = "POST" class = "d-inline-flex ">
+                        <button type = submit  name = "archive" value = "{{.Form_id}}" class = "btn btn-outline-primary bi bi-archive"></button>
+                      </form>
+
+                      <form action="/DownloadPDF" method = "POST" class = "d-inline-flex ">
+                        <button type = submit  name = "archive" value = "{{.Form_id}}" class = "btn btn-outline-primary bi bi-file-earmark-arrow-down"></button>
+                      </form>
+
+                    </td>
+                  </tr>
+                  {{end}}
+            </table>
+          </div>
+         
+   </div>
+<script src = "https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src = "https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src = "https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> 
+<script>
+  $(document).ready( function () {
+$('#myTable').DataTable();
+} );
+
+
+ </script>
+</body>
+</html>
